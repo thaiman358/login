@@ -1,5 +1,6 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy] # destroyアクションを追加
+  
   def index
     @blogs = Blog.all # 全部表示する
   end

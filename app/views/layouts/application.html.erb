@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Sample</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Taiga's Blog</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <header>
+    <ul>
+      <li><a>Taiga's Blog</a></li>
+      <li><a href="/blogs">トップページ</a></li>
+      <li><a href="/blogs/new">新規投稿</a></li>
+    </ul>
+  </header>
 
-  <body>
-    <%= yield %>
-  </body>
+<%= yield %>
+
+  <footer>
+    <p>運営会社DIVE INTO CODE株式会社</p>
+    <p>© 2018 Copyright DIVE INTO CODE Corp.</p>
+  </footer>
+
+</body>
 </html>

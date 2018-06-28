@@ -1,0 +1,7 @@
+.alert-success {
+    background-color: pink;
+}
+
+/*bootstrapのcssはnode_mojulesというフォルダの中に入っていますが、
+それ以外のCSSやjQueryはapp/assets/stylesheetsやapp/assets/javascriptsの中に
+格納することで使用することができます。*/
