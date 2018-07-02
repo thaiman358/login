@@ -2,15 +2,23 @@ class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy] # destroyアクションを追加
   
   def index
-    @blogs = Blog.all # 全部表示する
+    if logged_in?
+      @blogs = Blog.all # 全部表示する
+    else
+      redirect_to new_session_path
+    end
   end
   
   # /newのリクエストを受け取った時の処理
   def new
-    if params[:back]
-      @blog = Blog.new(blog_params)
+    if logged_in?
+      if params[:back]
+        @blog = Blog.new(blog_params)
+      else
+        @blog = Blog.new
+      end
     else
-      @blog = Blog.new
+      redirect_to new_session_path
     end
   end
   

@@ -8,12 +8,25 @@
 </head>
 <body>
   <header>
-    <ul>
-      <li><a>Taiga's Blog</a></li>
-      <li><a href="/blogs">トップページ</a></li>
-      <li><a href="/blogs/new">新規投稿</a></li>
-    </ul>
+    <% if logged_in? %>
+      # ログインしている場合
+      <ul>
+        <li><a>Taiga's Blog</a></li>
+        <li><a href="/blogs">Top Page</a></li>
+        <li><a href="/blogs/new">New Blog</a></li>
+        <li><%= link_to "Logout", session_path(current_user.id), method: :delete %></li>
+        <li><%= link_to "Profile", user_path(current_user.id) %></li>
+      </ul>
+    <% else %>
+      <ul>
+        <li><%= link_to "Sign up", new_user_path %></li>
+        <li><%= link_to "Login", new_session_path %></li>
+      </ul>
+    <% end %>  
   </header>
+  <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, class: "#{key}") %>
+  <% end %>
 
 <%= yield %>
 
