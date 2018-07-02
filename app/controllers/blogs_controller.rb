@@ -40,12 +40,20 @@ class BlogsController < ApplicationController
   
   # 詳細画面
   def show
-    @blog = Blog.find(params[:id])
+    if logged_in?
+      @blog = Blog.find(params[:id])
+    else
+      redirect_to new_session_path
+    end
   end
   
   # 編集画面
   def edit
-    @blog = Blog.find(params[:id])
+    if logged_in?
+      @blog = Blog.find(params[:id])
+    else
+      redirect_to new_session_path
+    end
   end
   
   

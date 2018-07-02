@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+    belongs_to :blog
     before_validation { email.downcase! }
     validates :name,  presence: true, length: { maximum: 30 }
     validates :email, presence: true, length: { maximum: 255 },
