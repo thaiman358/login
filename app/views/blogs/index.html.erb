@@ -6,13 +6,15 @@
   <div class="row blogs">
     <% @blogs.each do |blog| %>
       <div class="col-xs-12 col-md-6 panel panel-default">
-        <div class="panel-heading"><%= blog.title %></div>
-      <div class="panel-body">
-          <%= blog.content %>
+      <div class="panel-heading">@<%= blog.user.name %></div>
+        <div class="panel-body">Titel:<%= blog.title %></div>
+      <div class="panel-body">Content:<%= blog.content %>
         <div class="blog-links">
           <%= link_to '詳細', blog, class: 'btn btn-default' %>
-          <%= link_to '編集', edit_blog_path(blog), class: 'btn btn-info' %> |
-          <%= link_to '削除', blog, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% if blog.user_id == current_user.id %>
+            <%= link_to '編集', edit_blog_path(blog), class: 'btn btn-info' %> |
+            <%= link_to '削除', blog, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% end %>
         </div>
       </div>
     </div>

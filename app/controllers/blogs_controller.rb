@@ -16,6 +16,7 @@ class BlogsController < ApplicationController
         @blog = Blog.new(blog_params)
       else
         @blog = Blog.new
+        @blog.user_id = current_user.id #現在ログインしているuserのidをblogのuser_idカラムに挿入する。->これが無いとアソシエーション動かない
       end
     else
       redirect_to new_session_path
@@ -25,8 +26,9 @@ class BlogsController < ApplicationController
   # 作成
   def create
     @blog = Blog.new(blog_params)
+    @blog.user_id = current_user.id #現在ログインしているuserのidをblogのuser_idカラムに挿入する。->これが無いとアソシエーション動かない
     if @blog.save
-      redirect_to blogs_path, notice: "ブログを作成しました！"
+      redirect_to blogs_path
     else
       render 'new'
     end
@@ -35,6 +37,7 @@ class BlogsController < ApplicationController
   # 確認画面
   def confirm
     @blog = Blog.new(blog_params)
+    @blog.user_id = current_user.id #現在ログインしているuserのidをblogのuser_idカラムに挿入する。->これが無いとアソシエーション動かない
     render :new if @blog.invalid?
   end
   
@@ -42,6 +45,7 @@ class BlogsController < ApplicationController
   def show
     if logged_in?
       @blog = Blog.find(params[:id])
+      @favorite = current_user.favorites.find_by(blog_id: @blog.id)
     else
       redirect_to new_session_path
     end
@@ -74,7 +78,7 @@ class BlogsController < ApplicationController
   
   private
   def blog_params
-    params.require(:blog).permit(:title, :content)
+    params.require(:blog).permit(:title, :content, :user_id)
   end
   
   def set_blog
